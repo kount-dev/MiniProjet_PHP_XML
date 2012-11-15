@@ -1,5 +1,5 @@
 <?php
-	define(DSN,"mysql:dbname=bdd_iut;host=localhost");
-	define(USER,"root");
-	define(PASS,"root");
+	define('DSN',"mysql:dbname=DBmontant;host=smysql");
+	define('USER',"montant");
+	define('PASS',"montant");
 ?>
