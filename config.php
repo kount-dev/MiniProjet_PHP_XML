@@ -1,5 +1,5 @@
 <?php
-	define(DSN,"");
-	define(USER,"");
-	define(PASS,"");
+	define(DSN,"mysql:dbname=bdd_iut;host=localhost");
+	define(USER,"root");
+	define(PASS,"root");
 ?>
