@@ -42,55 +42,58 @@
 	</head>
 	<body>
 		<section id="colonne-droite">
-			<select class="select" name="nom_acteur" id="nom_acteur">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-					foreach($aActeurs as $aDataActeur){
-						echo "<option value='" . $aDataActeur['code_indiv'] . "'>" . $aDataActeur['nom'] . " - " . $aDataActeur['prenom'] . "</option>";
-					}
-				?>
-			</select>
-			<select class="select" name="genre_film" id="genre_film">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-					foreach($aGenres as $aDataGenre){
-						echo "<option value='" . $aDataGenre['code_genre'] . "'>" . $aDataGenre['nom_genre'] . "</option>";
-					}
-				?>
-			</select>
-			<select class="select" name="annee_film" id="annee_film">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-					foreach($aAnnée as $aDataAnnee){
-						echo "<option value='" . $aDataAnnee['date'] . "'>" . $aDataAnnee['date'] . "</option>";
-					}
-				?>
-			</select>
-			<select class="select" name="pays_film" id="pays_film">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-					foreach($aPays as $aDataPays){
-						echo "<option value='" . str_replace(' ','',$aDataPays['pays']) . "'>" . $aDataPays['pays'] . "</option>";
-					}
-				?>
-			</select>
+			<form action="export.php" method="POST">
+				<select class="select" name="nom_acteur" id="nom_acteur">
+					<option value='rien'>-- Choisir --</option>
+					<?php 
+						foreach($aActeurs as $aDataActeur){
+							echo "<option value='" . $aDataActeur['code_indiv'] . "'>" . utf8_encode($aDataActeur['nom']) . " - " . utf8_encode($aDataActeur['prenom']) . "</option>";
+						}
+					?>
+				</select>
+				<select class="select" name="genre_film" id="genre_film">
+					<option value='rien'>-- Choisir --</option>
+					<?php 
+						foreach($aGenres as $aDataGenre){
+							echo "<option value='" . $aDataGenre['code_genre'] . "'>" . utf8_encode($aDataGenre['nom_genre']) . "</option>";
+						}
+					?>
+				</select>
+				<select class="select" name="annee_film" id="annee_film">
+					<option value='rien'>-- Choisir --</option>
+					<?php 
+						foreach($aAnnée as $aDataAnnee){
+							echo "<option value='" . $aDataAnnee['date'] . "'>" . $aDataAnnee['date'] . "</option>";
+						}
+					?>
+				</select>
+				<select class="select" name="pays_film" id="pays_film">
+					<option value='rien'>-- Choisir --</option>
+					<?php 
+						foreach($aPays as $aDataPays){
+							echo "<option value='" . utf8_encode($aDataPays['pays']) . "'>" . utf8_encode($aDataPays['pays']) . "</option>";
+						}
+					?>
+				</select>
+				<input type="submit" value="Exporter en fichier XML">
+			</form>
 		</section>
 		<section id="colonne-gauche">
 			<article>
 				<?php 
 					foreach($aFilms as $aDataFilm){
 						echo "<div>";
-							echo "<h1>Titre Original: " . $aDataFilm['titre_original'] . " - (" .$aDataFilm['titre_francais'] . "- FR)</h1>";
-							echo "<p>Genre : " . $aDataFilm['nom_genre'] . "</br>";
+							echo "<h1>Titre Original: " . utf8_encode($aDataFilm['titre_original']) . " - (" . utf8_encode($aDataFilm['titre_francais']) . "- FR)</h1>";
+							echo "<p>Genre : " . utf8_encode($aDataFilm['nom_genre']) . "</br>";
 							echo "Dur&eacute;e : " . $aDataFilm['duree'] . "</br>";
 							echo "Date : " . $aDataFilm['date'] . "</br>";
-							echo "Pays : " . $aDataFilm['pays'] . "</br>";
-							echo "R&eacute;alisateur : " . $aDataFilm['realisateur'] . "</br>";
+							echo "Pays : " . utf8_encode($aDataFilm['pays']) . "</br>";
+							echo "R&eacute;alisateur : " . utf8_encode($aDataFilm['realisateur']) . "</br>";
 							$oPDOStatement = $oPDO->prepare('SELECT nom, prenom FROM acteurs a, individus i WHERE a.ref_code_acteur = i.code_indiv AND a.ref_code_film = ' . (int)$aDataFilm['code_film']);
 							$oPDOStatement->execute();
 							$aFilmActeurs = $oPDOStatement->fetchAll();
 							foreach ($aFilmActeurs as $aDataActeurs) {
-								echo "Acteur : " . $aDataActeurs['nom'] . " - " . $aDataActeurs['prenom'] . "</br>";
+								echo "Acteur : " . utf8_encode($aDataActeurs['nom']) . " - " . utf8_encode($aDataActeurs['prenom']) . "</br>";
 							}
 						echo "</p></div>";
 					}
