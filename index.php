@@ -37,17 +37,21 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="actions.js"></script>
 	</head>
 	<body>
 		<section id="colonne-droite">
 			<select class="select" name="nom_acteur" id="nom_acteur">
+				<option value='rien'>-- Choisir --</option>
 				<?php 
 					foreach($aActeurs as $aDataActeur){
-						echo "<option value='" . $aDataActeur['code_individus'] . "'>" . $aDataActeur['nom'] . " - " . $aDataActeur['prenom'] . "</option>";
+						echo "<option value='" . $aDataActeur['code_indiv'] . "'>" . $aDataActeur['nom'] . " - " . $aDataActeur['prenom'] . "</option>";
 					}
 				?>
 			</select>
 			<select class="select" name="genre_film" id="genre_film">
+				<option value='rien'>-- Choisir --</option>
 				<?php 
 					foreach($aGenres as $aDataGenre){
 						echo "<option value='" . $aDataGenre['code_genre'] . "'>" . $aDataGenre['nom_genre'] . "</option>";
@@ -55,6 +59,7 @@
 				?>
 			</select>
 			<select class="select" name="annee_film" id="annee_film">
+				<option value='rien'>-- Choisir --</option>
 				<?php 
 					foreach($aAnnée as $aDataAnnee){
 						echo "<option value='" . $aDataAnnee['date'] . "'>" . $aDataAnnee['date'] . "</option>";
@@ -62,9 +67,10 @@
 				?>
 			</select>
 			<select class="select" name="pays_film" id="pays_film">
+				<option value='rien'>-- Choisir --</option>
 				<?php 
 					foreach($aPays as $aDataPays){
-						echo "<option value='" . $aDataPays['pays'] . "'>" . $aDataPays['pays'] . "</option>";
+						echo "<option value='" . str_replace(' ','',$aDataPays['pays']) . "'>" . $aDataPays['pays'] . "</option>";
 					}
 				?>
 			</select>
