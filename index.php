@@ -45,64 +45,63 @@ $aFilms = $oPDOStatement->fetchAll();
 </head>
 <body>
 	<section id="colonne-droite">
-		<form action="actions/export.php" method="POST">
-			<label for="nom_acteur">Acteurs : </label>
-			<select class="select" name="nom_acteur" id="nom_acteur">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-				foreach($aActeurs as $aDataActeur){
-					echo "<option value='" . $aDataActeur['code_indiv'] . "'>" . utf8_encode($aDataActeur['nom']) . " - " . utf8_encode($aDataActeur['prenom']) . "</option>";
-				}
-				?>
-			</select>
-			<br/>
+		<label for="nom_acteur">Acteurs : </label>
+		<select class="select" name="nom_acteur" id="nom_acteur">
+			<option value='rien'>-- Choisir --</option>
+			<?php 
+			foreach($aActeurs as $aDataActeur){
+				echo "<option value='" . $aDataActeur['code_indiv'] . "'>" . utf8_encode($aDataActeur['nom']) . " - " . utf8_encode($aDataActeur['prenom']) . "</option>";
+			}
+			?>
+		</select>
+		<br/>
 
-			<label for="nom_realisateur">Réalisateurs : </label>
-			<select class="select" name="nom_realisateur" id="nom_realisateur">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-				foreach($aRealisateurs as $aRealisateur){
-					echo "<option value='" . $aRealisateur['code_indiv'] . "'>" . utf8_encode($aRealisateur['nom']) . " - " . utf8_encode($aRealisateur['prenom']) . "</option>";
-				}
-				?>
-			</select>
-			<br/>
+		<label for="nom_realisateur">Réalisateurs : </label>
+		<select class="select" name="nom_realisateur" id="nom_realisateur">
+			<option value='rien'>-- Choisir --</option>
+			<?php 
+			foreach($aRealisateurs as $aRealisateur){
+				echo "<option value='" . $aRealisateur['code_indiv'] . "'>" . utf8_encode($aRealisateur['nom']) . " - " . utf8_encode($aRealisateur['prenom']) . "</option>";
+			}
+			?>
+		</select>
+		<br/>
 
-			<label for="genre_film">Genres : </label>
-			<select class="select" name="genre_film" id="genre_film">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-				foreach($aGenres as $aDataGenre){
-					echo "<option value='" . $aDataGenre['code_genre'] . "'>" . utf8_encode($aDataGenre['nom_genre']) . "</option>";
-				}
-				?>
-			</select>
-			<br/>
+		<label for="genre_film">Genres : </label>
+		<select class="select" name="genre_film" id="genre_film">
+			<option value='rien'>-- Choisir --</option>
+			<?php 
+			foreach($aGenres as $aDataGenre){
+				echo "<option value='" . $aDataGenre['code_genre'] . "'>" . utf8_encode($aDataGenre['nom_genre']) . "</option>";
+			}
+			?>
+		</select>
+		<br/>
 
-			<label for="annee_film">Année : </label>
-			<select class="select" name="annee_film" id="annee_film">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-				foreach($aAnnée as $aDataAnnee){
-					echo "<option value='" . $aDataAnnee['date'] . "'>" . $aDataAnnee['date'] . "</option>";
-				}
-				?>
-			</select>
-			<br/>
+		<label for="annee_film">Année : </label>
+		<select class="select" name="annee_film" id="annee_film">
+			<option value='rien'>-- Choisir --</option>
+			<?php 
+			foreach($aAnnée as $aDataAnnee){
+				echo "<option value='" . $aDataAnnee['date'] . "'>" . $aDataAnnee['date'] . "</option>";
+			}
+			?>
+		</select>
+		<br/>
 
-			<label for="pays_film">Pays : </label>
-			<select class="select" name="pays_film" id="pays_film">
-				<option value='rien'>-- Choisir --</option>
-				<?php 
-				foreach($aPays as $aDataPays){
-					echo "<option value='" . utf8_encode($aDataPays['pays']) . "'>" . utf8_encode($aDataPays['pays']) . "</option>";
-				}
-				?>
-			</select>
-			<br/>
-			
-			<input type="submit" value="Exporter en fichier XML">
-		</form>
+		<label for="pays_film">Pays : </label>
+		<select class="select" name="pays_film" id="pays_film">
+			<option value='rien'>-- Choisir --</option>
+			<?php 
+			foreach($aPays as $aDataPays){
+				echo "<option value='" . utf8_encode($aDataPays['pays']) . "'>" . utf8_encode($aDataPays['pays']) . "</option>";
+			}
+			?>
+		</select>
+		<br/>
+
+		<input type="button" id="export" value="Exporter en fichier XML">
+
 	</section>
 	<section id="colonne-gauche">
 		<article>
