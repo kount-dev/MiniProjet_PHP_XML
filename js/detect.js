@@ -28,5 +28,5 @@ jQuery(function(){
 	});
 	$('input#init').click(function(){
 		location.reload();
-	}
+	});
 });	
