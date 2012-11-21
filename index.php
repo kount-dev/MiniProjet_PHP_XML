@@ -101,7 +101,7 @@ $aFilms = $oPDOStatement->fetchAll();
 		<br/>
 
 		<input type="button" id="export" value="Exporter en fichier XML">
-
+		<input type="button" id="init" value="Réinitialiser les critères">
 	</section>
 	<section id="colonne-gauche">
 		<article>

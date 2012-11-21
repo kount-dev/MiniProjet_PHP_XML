@@ -26,4 +26,7 @@ jQuery(function(){
 	  		data: {nom_acteur: nIdActeur, nom_realisateur: nIdRealisateur, genre_film: nIdGenre, annee_film: nAnnee, pays_film: sPays, action: 'export'},
 		});
 	});
+	$('input#init').click(function(){
+		location.reload();
+	}
 });	
