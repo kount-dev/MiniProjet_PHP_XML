@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<FILMS>
+  <FILM>
+    <TITRE>
+      <ORIGINAL>Tacones lejanos</ORIGINAL>
+      <FRANCAIS>Talons aiguilles</FRANCAIS>
+    </TITRE>
+    <GENRES>
+      <GENRE>9</GENRE>
+      <GENRE>7</GENRE>
+      <GENRE>3</GENRE>
+    </GENRES>
+    <DUREE>115</DUREE>
+    <DATE>1991</DATE>
+    <PAYS>Espagne</PAYS>
+    <REALISATEUR>89</REALISATEUR>
+    <ACTEURS>
+      <ACTEUR>86</ACTEUR>
+      <ACTEUR>87</ACTEUR>
+      <ACTEUR>88</ACTEUR>
+      <ACTEUR>289</ACTEUR>
+      <ACTEUR>576</ACTEUR>
+    </ACTEURS>
+  </FILM>
+</FILMS>
