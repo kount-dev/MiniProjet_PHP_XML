@@ -25,7 +25,7 @@ jQuery(function(){
 	  		url: "actions/resultat.php",
 	  		data: {nom_acteur: nIdActeur, nom_realisateur: nIdRealisateur, genre_film: nIdGenre, annee_film: nAnnee, pays_film: sPays, action: 'export'},
 			success:function(res){
-				alert("Exportation avec succes");
+				alert("Exportation avec succes dans le dossier exports/");
 			}
 		});
 	});
