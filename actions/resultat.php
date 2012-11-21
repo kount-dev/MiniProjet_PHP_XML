@@ -141,8 +141,8 @@ elseif (isset($_POST['action']) && $_POST['action'] == 'export') {
 		}
 		if ($nTest == 1) {$nTest = 0;}
 	}
-	
-	$document->save('../exports/export.xml');	
+
+	$document->save('../exports/export'.date("Ymd_H.i.s").'.xml');	
 	header('Location:../index.php');
 }
 ?>
