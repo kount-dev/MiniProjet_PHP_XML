@@ -1,7 +1,7 @@
 <?php
 
 include 'config.php';
-
+include 'actions/functions.php';
 try{
 	$oPDO = new PDO(DSN,USER,PASS);
 }
@@ -106,36 +106,37 @@ $aFilms = $oPDOStatement->fetchAll();
 	<section id="colonne-gauche">
 		<article>
 			<?php 
-			foreach($aFilms as $aDataFilm){
-				echo "<div>";
-				echo "<h1>Titre Original: " . utf8_encode($aDataFilm['titre_original']) . " - (" . utf8_encode($aDataFilm['titre_francais']) . "- FR)</h1>";
-				echo "<p>";
+			// foreach($aFilms as $aDataFilm){
+			// 	echo "<div>";
+			// 	echo "<h1>Titre Original: " . utf8_encode($aDataFilm['titre_original']) . " - (" . utf8_encode($aDataFilm['titre_francais']) . "- FR)</h1>";
+			// 	echo "<p>";
 
-				$oPDOStatement = $oPDO->prepare('SELECT * FROM genres g, classification c WHERE  c.ref_code_film = ' . (int)$aDataFilm['code_film'] . '	AND c.ref_code_genre = g.code_genre');
-				$oPDOStatement->execute();
-				$aGenres = $oPDOStatement->fetchAll();
-				foreach ($aGenres as $aGenre) {
-					echo "Genre : " . utf8_encode($aGenre['nom_genre']) . "</br>";
-				}
-				echo "Dur&eacute;e : " . $aDataFilm['duree'] . " min</br>";
-				echo "Date : " . $aDataFilm['date'] . "</br>";
-				echo "Pays : " . utf8_encode($aDataFilm['pays']) . "</br>";
+			// 	$oPDOStatement = $oPDO->prepare('SELECT * FROM genres g, classification c WHERE  c.ref_code_film = ' . (int)$aDataFilm['code_film'] . '	AND c.ref_code_genre = g.code_genre');
+			// 	$oPDOStatement->execute();
+			// 	$aGenres = $oPDOStatement->fetchAll();
+			// 	foreach ($aGenres as $aGenre) {
+			// 		echo "Genre : " . utf8_encode($aGenre['nom_genre']) . "</br>";
+			// 	}
+			// 	echo "Dur&eacute;e : " . $aDataFilm['duree'] . " min</br>";
+			// 	echo "Date : " . $aDataFilm['date'] . "</br>";
+			// 	echo "Pays : " . utf8_encode($aDataFilm['pays']) . "</br>";
 
-				$oPDOStatement = $oPDO->prepare('SELECT nom, prenom FROM individus WHERE code_indiv =' . (int)$aDataFilm['realisateur']);
-				$oPDOStatement->execute();
-				$aRealisateurs = $oPDOStatement->fetchAll();
-				foreach ($aRealisateurs as $aRealisateur) {
-					echo "R&eacute;alisateur : " . utf8_encode($aRealisateur['nom']) . " - " . utf8_encode($aRealisateur['prenom']) . "</br>";
-				}
+			// 	$oPDOStatement = $oPDO->prepare('SELECT nom, prenom FROM individus WHERE code_indiv =' . (int)$aDataFilm['realisateur']);
+			// 	$oPDOStatement->execute();
+			// 	$aRealisateurs = $oPDOStatement->fetchAll();
+			// 	foreach ($aRealisateurs as $aRealisateur) {
+			// 		echo "R&eacute;alisateur : " . utf8_encode($aRealisateur['nom']) . " - " . utf8_encode($aRealisateur['prenom']) . "</br>";
+			// 	}
 
-				$oPDOStatement = $oPDO->prepare('SELECT nom, prenom FROM acteurs a, individus i WHERE a.ref_code_acteur = i.code_indiv AND a.ref_code_film = ' . (int)$aDataFilm['code_film']);
-				$oPDOStatement->execute();
-				$aFilmActeurs = $oPDOStatement->fetchAll();
-				foreach ($aFilmActeurs as $aDataActeurs) {
-					echo "Acteur : " . utf8_encode($aDataActeurs['nom']) . " - " . utf8_encode($aDataActeurs['prenom']) . "</br>";
-				}
-				echo "</p></div>";
-			}
+			// 	$oPDOStatement = $oPDO->prepare('SELECT nom, prenom FROM acteurs a, individus i WHERE a.ref_code_acteur = i.code_indiv AND a.ref_code_film = ' . (int)$aDataFilm['code_film']);
+			// 	$oPDOStatement->execute();
+			// 	$aFilmActeurs = $oPDOStatement->fetchAll();
+			// 	foreach ($aFilmActeurs as $aDataActeurs) {
+			// 		echo "Acteur : " . utf8_encode($aDataActeurs['nom']) . " - " . utf8_encode($aDataActeurs['prenom']) . "</br>";
+			// 	}
+			// 	echo "</p></div>";
+			// }
+			echo displayBDD($aFilms, $oPDO);
 			?>
 		</article>
 	</section>
