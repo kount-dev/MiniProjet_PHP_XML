@@ -100,8 +100,14 @@ $aFilms = $oPDOStatement->fetchAll();
 		</select>
 		<br/>
 
-		<input type="button" id="export" value="Exporter en fichier XML">
-		<input type="button" id="init" value="Réinitialiser les critères">
+		<input type="button" id="export" value="Exporter en fichier XML"/>
+		<input type="button" id="init" value="Réinitialiser les critères"/>
+	</section>
+	<section id="import">
+		<form  enctype="multipart/form-data" action="actions/import.php" method="POST">
+			<input type="file" name="xml_import"/>
+			<input type="submit" value="Importer le fichier"/>
+		</form>
 	</section>
 	<section id="colonne-gauche">
 		<article>
