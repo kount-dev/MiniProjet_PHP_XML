@@ -1,6 +1,5 @@
 <?php
 function displayBDD($aFilms, $oPDO){
-
 	$sResultat = "";
 	foreach($aFilms as $aDataFilm){
 		$sResultat .= "<div>";
