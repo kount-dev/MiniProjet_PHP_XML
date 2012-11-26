@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<FILMS>
+  <FILM>
+    <TITRE>
+      <ORIGINAL>D&#xE9;d&#xE9;e d'Anvers</ORIGINAL>
+      <FRANCAIS>D&#xE9;d&#xE9;e d'Anvers</FRANCAIS>
+    </TITRE>
+    <GENRES>
+      <GENRE>7</GENRE>
+      <GENRE>5</GENRE>
+      <GENRE>1</GENRE>
+    </GENRES>
+    <DUREE>86</DUREE>
+    <DATE>1948</DATE>
+    <PAYS>France</PAYS>
+    <REALISATEUR>508</REALISATEUR>
+    <ACTEURS>
+      <ACTEUR>175</ACTEUR>
+      <ACTEUR>509</ACTEUR>
+      <ACTEUR>302</ACTEUR>
+    </ACTEURS>
+  </FILM>
+  <FILM>
+    <TITRE>
+      <ORIGINAL>Man&#xE8;ges</ORIGINAL>
+      <FRANCAIS>Man&#xE8;ges</FRANCAIS>
+    </TITRE>
+    <GENRES>
+      <GENRE>1</GENRE>
+      <GENRE>10</GENRE>
+      <GENRE>6</GENRE>
+    </GENRES>
+    <DUREE>91</DUREE>
+    <DATE>1950</DATE>
+    <PAYS>France</PAYS>
+    <REALISATEUR>508</REALISATEUR>
+    <ACTEURS>
+      <ACTEUR>175</ACTEUR>
+      <ACTEUR>302</ACTEUR>
+    </ACTEURS>
+  </FILM>
+</FILMS>
