@@ -9,9 +9,13 @@ function displayBDD($aFilms, $oPDO){
 		$oPDOStatement = $oPDO->prepare('SELECT * FROM genres g, classification c WHERE  c.ref_code_film = ' . (int)$aDataFilm['code_film'] . '	AND c.ref_code_genre = g.code_genre');
 		$oPDOStatement->execute();
 		$aGenres = $oPDOStatement->fetchAll();
-		$sResultat .= "<p>Genre :</p>";
-		$sResultat .= "<ul>";
+		$tmp = 0;
 		foreach ($aGenres as $aGenre) {
+			if($tmp == 0){
+				$sResultat .= "<p>Genre :</p>";
+				$sResultat .= "<ul>";
+				$tmp = 1;
+			}
 			$sResultat .= "<li>" . utf8_encode($aGenre['nom_genre']) . "</li>";
 		}
 		$sResultat .= "</ul>";
@@ -28,9 +32,13 @@ function displayBDD($aFilms, $oPDO){
 		$oPDOStatement = $oPDO->prepare('SELECT nom, prenom FROM acteurs a, individus i WHERE a.ref_code_acteur = i.code_indiv AND a.ref_code_film = ' . (int)$aDataFilm['code_film']);
 		$oPDOStatement->execute();
 		$aFilmActeurs = $oPDOStatement->fetchAll();
-		$sResultat .= "<p>Acteurs :</p>";
-		$sResultat .= "<ul>";
+		$tmp = 0;
 		foreach ($aFilmActeurs as $aDataActeurs) {
+			if($tmp == 0){
+				$sResultat .= "<p>Acteurs :</p>";
+				$sResultat .= "<ul>";
+				$tmp = 1;
+			}
 			$sResultat .= "<li>" . utf8_encode($aDataActeurs['nom']) . " - " . utf8_encode($aDataActeurs['prenom']) . "</li>";
 		}
 		$sResultat .= "</ul>";
