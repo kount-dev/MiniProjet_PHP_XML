@@ -1,14 +1,24 @@
 <?php 
-$test = simplexml_load_file($_FILES['xml_import']['tmp_name']);
+include '../config.php';
+try{
+	$oPDO = new PDO(DSN,USER,PASS);
+}
+catch(PDOException $e) {
+	echo 'Connexion échouée : ' . $e->getMessage();
+}
 
-foreach ($test->children() as $FILM => $FILS){
+$oFile = simplexml_load_file($_FILES['xml_import']['tmp_name']);
+
+foreach ($oFile->children() as $FILM => $FILM_FILS){
 	echo $FILM . '<br>';
-	foreach ($FILS->children() as $DESC => $VALUE) {
-		echo $DESC;
-		if($DESC == "TITRE" || $DESC == "GENRES" || $DESC == "ACTEURS"){
+	foreach ($FILM_FILS->children() as $CARAC => $CARAC_VALUE) {
+		echo $CARAC;
+		if($CARAC == "TITRE" || $CARAC == "GENRES" || $CARAC == "ACTEURS"){
 			echo '<br>';
-			foreach ($VALUE->children() as $OBJ => $TRUCK){
-				echo $OBJ . ' = ' . utf8_decode($TRUCK) . '<br>';
+			foreach ($CARAC_VALUE->children() as $OBJ => $TEXT){
+				echo $OBJ . ' = ' . utf8_decode($TEXT) . '<br>';
+				
+			
 				// si la paire n existe pas
 					// on test si le titre existe && si le realisateur existe
 						// on insert le titre, durée, date, payx, realisateur => FILM
@@ -23,7 +33,7 @@ foreach ($test->children() as $FILM => $FILS){
 			} 
 		}
 		else{
-			echo ' = ' . utf8_decode($VALUE) . '<br>'; 
+			echo ' = ' . utf8_decode($CARAC_VALUE) . '<br>'; 
 		}
 	}
 }
