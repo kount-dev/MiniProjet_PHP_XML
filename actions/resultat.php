@@ -1,42 +1,44 @@
 <?php 
-include '../config.php';
+include '../classes/DB.php';
 include 'functions.php';
+include '../config.php';
 
-try{
-	$oPDO = new PDO(DSN,USER,PASS);
-}
-catch(PDOException $e) {
-	echo 'Connexion échouée : ' . $e->getMessage();
-}
+DB::connect(DSN,USER,PASS);
 
 $sResultat = "";
 $TABLES = "";
 $WHERE = "";
+$aDataQuery = array();
 
 if(isset($_POST['genre_film']) && $_POST['genre_film'] != "rien"){ 
 	$TABLES .= ", genres g, classification c";
-	$WHERE .= " AND g.code_genre = c.ref_code_genre AND f.code_film = c.ref_code_film AND g.code_genre = " . (int)$_POST['genre_film'];
+	$WHERE .= " AND g.code_genre = c.ref_code_genre AND f.code_film = c.ref_code_film AND g.code_genre = :genre_film";
+	$aDataQuery[':genre_film'] = (int)$_POST['genre_film'];
 }
 if(isset($_POST['nom_acteur']) && $_POST['nom_acteur'] != "rien"){ 
 	$TABLES .= ", acteurs a, individus i";
-	$WHERE .= " AND i.code_indiv = a.ref_code_acteur AND a.ref_code_film = f.code_film AND i.code_indiv = " . (int)$_POST['nom_acteur'];
+	$WHERE .= " AND i.code_indiv = a.ref_code_acteur AND a.ref_code_film = f.code_film AND i.code_indiv = :code_indiv";
+	$aDataQuery[':code_indiv'] = (int)$_POST['nom_acteur'];
 }
 if(isset($_POST['nom_realisateur']) && $_POST['nom_realisateur'] != "rien"){ 
-	$WHERE .= " AND f.realisateur = " . (int)$_POST['nom_realisateur'];
+	$WHERE .= " AND f.realisateur = :code_realisateur";
+	$aDataQuery[':code_realisateur'] = (int)$_POST['nom_realisateur'];
 }
 if(isset($_POST['pays_film']) && $_POST['pays_film'] != "rien"){ 
-	$WHERE .=  " AND f.pays = '" . utf8_decode($_POST['pays_film']) ."'";
+	$WHERE .=  " AND f.pays = :pays";
+	$aDataQuery[':pays'] = utf8_decode($_POST['pays_film']);
 }
 if(isset($_POST['annee_film']) && $_POST['annee_film'] != "rien"){ 
-	$WHERE .=  " AND f.date = " . (int)$_POST['annee_film'];
+	$WHERE .=  " AND f.date = :date";
+	$aDataQuery[':date'] = (int)$_POST['annee_film'];
 }
 
-$oPDOStatement = $oPDO->prepare('SELECT * FROM films f' . $TABLES . ' WHERE 1'. $WHERE .' ORDER BY f.titre_original');
-$oPDOStatement->execute();
-$aFilms = $oPDOStatement->fetchAll();
+$sQueryPDO = 'SELECT * FROM films f' . $TABLES . ' WHERE 1'. $WHERE .' ORDER BY f.titre_original';
+
+$aFilms = DB::query($sQueryPDO, $aDataQuery);
 
 if(isset($_POST['action']) && $_POST['action'] == 'display'){
-	echo displayBDD($aFilms, $oPDO);
+	echo displayBDD($aFilms);
 }
 elseif (isset($_POST['action']) && $_POST['action'] == 'export') {
 	$document = new DomDocument();
@@ -60,9 +62,7 @@ elseif (isset($_POST['action']) && $_POST['action'] == 'export') {
 		$text = $document->createTextNode(trim(utf8_encode($aDataFilm['titre_francais'])));
 		$Francais->appendChild($text);
 
-		$oPDOStatement = $oPDO->prepare('SELECT * FROM genres g, classification c WHERE  c.ref_code_film = ' . (int)$aDataFilm['code_film'] . '	AND c.ref_code_genre = g.code_genre');
-		$oPDOStatement->execute();
-		$aGenres = $oPDOStatement->fetchAll();
+		$aGenres = DB::query('SELECT * FROM genres g, classification c WHERE  c.ref_code_film = :code_film AND c.ref_code_genre = g.code_genre', array(':code_film' =>  (int)$aDataFilm['code_film']));
 		foreach ($aGenres as $aGenre) {
 			if($nTest == 0){
 				$Genres = $document->createElement('GENRES'); 
@@ -96,9 +96,7 @@ elseif (isset($_POST['action']) && $_POST['action'] == 'export') {
 		$text = $document->createTextNode($aDataFilm['realisateur']);
 		$Realisateur->appendChild($text);		
 
-		$oPDOStatement = $oPDO->prepare('SELECT code_indiv FROM acteurs a, individus i WHERE a.ref_code_acteur = i.code_indiv AND a.ref_code_film = ' . (int)$aDataFilm['code_film']);
-		$oPDOStatement->execute();
-		$aFilmActeurs = $oPDOStatement->fetchAll();
+		$aFilmActeurs = DB::query('SELECT code_indiv FROM acteurs a, individus i WHERE a.ref_code_acteur = i.code_indiv AND a.ref_code_film = :code_film', array(':code_film' => (int)$aDataFilm['code_film']));
 		foreach ($aFilmActeurs as $aDataActeurs) {
 			if($nTest == 0){
 				$Acteurs = $document->createElement('ACTEURS');

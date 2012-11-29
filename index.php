@@ -2,36 +2,16 @@
 
 include 'config.php';
 include 'actions/functions.php';
-try{
-	$oPDO = new PDO(DSN,USER,PASS);
-}
-catch(PDOException $e) {
-	echo 'Connexion échouée : ' . $e->getMessage();
-}
+include 'classes/DB.php';
 
-$oPDOStatement = $oPDO->prepare('SELECT DISTINCT(code_indiv), nom, prenom FROM individus i, acteurs a WHERE i.code_indiv = a.ref_code_acteur ORDER BY i.nom');
-$oPDOStatement->execute();
-$aActeurs = $oPDOStatement->fetchAll();
+DB::connect(DSN,USER,PASS);
 
-$oPDOStatement = $oPDO->prepare('SELECT DISTINCT(code_indiv), nom, prenom FROM individus i, films f WHERE i.code_indiv = f.realisateur ORDER BY i.nom');
-$oPDOStatement->execute();
-$aRealisateurs = $oPDOStatement->fetchAll();
-
-$oPDOStatement = $oPDO->prepare('SELECT * FROM genres ORDER BY nom_genre');
-$oPDOStatement->execute();
-$aGenres = $oPDOStatement->fetchAll();
-
-$oPDOStatement = $oPDO->prepare('SELECT DISTINCT date FROM films ORDER BY date');
-$oPDOStatement->execute();
-$aAnnée = $oPDOStatement->fetchAll();
-
-$oPDOStatement = $oPDO->prepare('SELECT DISTINCT pays FROM films ORDER BY pays');
-$oPDOStatement->execute();
-$aPays = $oPDOStatement->fetchAll();
-
-$oPDOStatement = $oPDO->prepare('SELECT * FROM films ORDER BY titre_original');
-$oPDOStatement->execute();
-$aFilms = $oPDOStatement->fetchAll();
+$aActeurs = DB::query('SELECT DISTINCT(code_indiv), nom, prenom FROM individus i, acteurs a WHERE i.code_indiv = a.ref_code_acteur ORDER BY i.nom',NULL);
+$aRealisateurs = DB::query('SELECT DISTINCT(code_indiv), nom, prenom FROM individus i, films f WHERE i.code_indiv = f.realisateur ORDER BY i.nom',NULL);
+$aGenres = DB::query('SELECT * FROM genres ORDER BY nom_genre',NULL);
+$aAnnee = DB::query('SELECT DISTINCT date FROM films ORDER BY date',NULL);
+$aPays = DB::query('SELECT DISTINCT pays FROM films ORDER BY pays',NULL);
+$aFilms = DB::query('SELECT * FROM films ORDER BY titre_original',NULL);
 
 ?>
 
@@ -82,7 +62,7 @@ $aFilms = $oPDOStatement->fetchAll();
 		<select class="select" name="annee_film" id="annee_film">
 			<option value='rien'>-- Choisir --</option>
 			<?php 
-			foreach($aAnnée as $aDataAnnee){
+			foreach($aAnnee as $aDataAnnee){
 				echo "<option value='" . $aDataAnnee['date'] . "'>" . $aDataAnnee['date'] . "</option>";
 			}
 			?>
@@ -112,7 +92,7 @@ $aFilms = $oPDOStatement->fetchAll();
 	<section id="colonne-gauche">
 		<article>
 			<?php 
-			echo displayBDD($aFilms, $oPDO);
+			echo displayBDD($aFilms);
 			?>
 		</article>
 	</section>
