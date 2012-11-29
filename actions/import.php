@@ -1,11 +1,8 @@
 <?php 
 include '../config.php';
-try{
-	$oPDO = new PDO(DSN,USER,PASS);
-}
-catch(PDOException $e) {
-	echo 'Connexion échouée : ' . $e->getMessage();
-}
+include '../classes/DB.php';
+
+DB::connect(DSN,USER,PASS);
 
 $oFile = simplexml_load_file($_FILES['xml_import']['tmp_name']);
 
