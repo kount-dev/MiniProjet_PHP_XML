@@ -14,7 +14,7 @@ foreach ($oFile->children() as $FILM => $FILM_FILS){
 			foreach ($CARAC_VALUE->children() as $OBJ => $TEXT){
 				$aFilms[$FILM . '_' . $nInt][$CARAC][$OBJ . '_' . $nIntTMP] = utf8_decode($TEXT);
 				$nIntTMP++;
-			} 
+			}
 		}
 		else{
 			$aFilms[$FILM . '_' . $nInt][$CARAC] = utf8_decode($CARAC_VALUE); 
@@ -23,8 +23,30 @@ foreach ($oFile->children() as $FILM => $FILM_FILS){
 	$nInt++;
 }
 
-var_dump($aFilms);
-
+foreach ($aFilms as $CARAC => $CARAC_VALUE) { // FILM_N
+	$aMatch = DB::query('SELECT code_film FROM films WHERE titre_original = :titre && realisateur = :v_realisateur', array(':titre' => $CARAC_VALUE['TITRE']['ORIGINAL_0'], ':v_realisateur' => $CARAC_VALUE['REALISATEUR']));
+	// si la paire n existe pas
+	if(sizeof($aMatch) >= 1){
+		//on test si le titre existe && si le realisateur existe
+		$aTest1 = DB::query('SELECT titre_original, code_indiv FROM films, individus WHERE titre_original = :titre && code_indiv = :v_realisateur', array(':titre' => $CARAC_VALUE['TITRE']['ORIGINAL_0'], ':v_realisateur' => $CARAC_VALUE['REALISATEUR']));
+		if(sizeof($aTest1) >= 1){
+			//on insert le titre, durée, date, pays, realisateur => FILM
+/*			$titre_o = $CARAC_VALUE['TITRE']['ORIGINAL_0'];
+			$titre_fr = $CARAC_VALUE['TITRE']['FRANCAIS_1'];
+			$pays = $CARAC_VALUE['PAYS'];
+			$date = $CARAC_VALUE['DATE'];
+			$duree = $CARAC_VALUE['DUREE'];
+			$realisateur = $CARAC_VALUE['REALISATEUR'];
+			*/
+			$insert1 = DB::query('INSERT INTO films (titre_original, titre_français, pays, date, duree, realisateur) VALUES("'.$CARAC_VALUE['TITRE']['ORIGINAL_0'].'", "'.$CARAC_VALUE['TITRE']['FRANCAIS_1'].'", "'.$CARAC_VALUE['PAYS'].'", "'.$CARAC_VALUE['DATE'].'", "'.$CARAC_VALUE['DUREE'].'", "'.$CARAC_VALUE['REALISATEUR'].'")');
+			//si individus existe
+				//on fait le lien acteurs / films
+			//si les genre existe
+				//on fait le lien genres / films
+		}
+	}
+	
+}
 
 // JE T'AI TOUT MIS DANS UN TABLEAU JE TE DONNE UN EXEMPLE DU TABLEAU
 /*
@@ -52,13 +74,5 @@ array(1) {
 }
 */
 
-// si la paire n existe pas
-					// on test si le titre existe && si le realisateur existe
-						// on insert le titre, durée, date, payx, realisateur => FILM
-						// si individus existe
-							// on fait le lien acteurs / films
-						// si les genre existe
-							// on fait le lien genres / films
-					//sinon 
-				//sinon le film existe deja
+
 ?>
