@@ -40,40 +40,42 @@ $(function(){
 			case "pays":
 			choice_pays="rien";
 		}
-		$(this).css('display','none');
-		$(this).parent().find(".choice").css('display','none');
+		$(this).hide();
+		$(this).parent().find('.choice').hide();
+		//$(this).css('display','none');
+		//$(this).parent().find(".choice").css('display','none');
 		request("display");
 	});
 
 	$('#select_acteur li').click(function(){
-		console.log()
 		choice_acteur=$(this).attr('id');
-		$('#acteur .choice').html($(this).html());
-		$('#acteur i').css('display','block');
+		console.log($(this).html());
+		$('#acteur .choice').html($(this).html()).show();
+		$('#acteur i').show();
 		request("display");
 	});
 	$('#select_realisateur li').click(function(){
 		choice_realisateur=$(this).attr('id');
-		$('#realisateur .choice').html($(this).html());
-		$('#realisateur i').css('display','block');
+		$('#realisateur .choice').html($(this).html()).show();
+		$('#realisateur i').show();
 		request("display");
 	});
 	$('#select_genre li').click(function(){
 		choice_genre=$(this).attr('id');
-		$('#genre .choice').html($(this).html());
-		$('#genre i').css('display','block');
+		$('#genre .choice').html($(this).html()).show();
+		$('#genre i').show();
 		request("display");
 	});
 	$('#select_annee li').click(function(){
 		choice_annee=$(this).attr('id');
-		$('#annee .choice').html($(this).html());
-		$('#annee i').css('display','block');
+		$('#annee .choice').html($(this).html()).show();
+		$('#annee i').show();
 		request("display");
 	});
 	$('#select_pays li').click(function(){
 		choice_pays=$(this).attr('id');
-		$('#pays .choice').html($(this).html());
-		$('#pays i').css('display','block');
+		$('#pays .choice').html($(this).html()).show();
+		$('#pays i').show();
 		request("display");
 	});
 
@@ -90,25 +92,27 @@ $(function(){
 		console.log("choice_annee: "+choice_annee);
 		console.log("choice_pays: "+choice_pays);
 
-		$('header #img_title').addClass("loading");
 		$.ajax({
 			type: "POST",
 			url: "actions/resultat.php",
-			data: {nom_acteur: choice_acteur, nom_realisateur: choice_realisateur, genre_film: choice_genre, annee_film: choice_annee, pays_film: choice_pays, action: "display"},
+			data: {nom_acteur: choice_acteur, nom_realisateur: choice_realisateur, genre_film: choice_genre, annee_film: choice_annee, pays_film: choice_pays, action: type},
+			beforeSend: function(){
+				$('header #img_title').addClass("loading");
+			},
 			success: function (res){
-				$('header #img_title').removeClass("loading");
 				if(type=="display")
 					$('#colonne-gauche').html(res);
-				else{
+				else
 					popup("Export Succes", "L'export s'est déroulé avec succes!");
-				}
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				popup("Error",errorThrown);
+			},
+			complete: function(){
+				$('header #img_title').removeClass("loading");
 			}
 		});
 	}
-
-	$('#popup i').click(function(){
-		$(this).parent().slideUp();
-	});
 
 	/****************** IMPORT ***********************/
 	var file="";
@@ -124,13 +128,22 @@ $(function(){
 	});
 
 	/***************** POPUP ***************************/
+
+	$('#popup i').click(function(){
+		$(this).parent().slideUp();
+	});
+
 	function popup(title, content){
+		if(title=="Error")
+			$('#popup').addClass('error');
+
 		$('#popup h3').html(title);
 		$('#popup p').html(content);
 
 		$('#popup').slideDown();
 		setTimeout(function() {
 			$('#popup').slideUp();
+			$('#popup').removeClass('error');
 		}, 5000);
 	}
 

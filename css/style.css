@@ -40,7 +40,6 @@ body{
 }
 
 header, footer{
-	z-index: 10;
 	background-color: #020202;
 	font-size: 12px;
 	position: fixed;
@@ -49,12 +48,12 @@ header, footer{
 
 header{
 	top:0;
-	padding: 15px 10px;
+	padding: 15px 5px;
 	border-bottom: 2px solid #0099cc;
 }
 footer{
 	bottom: 0;
-	padding: 10px;
+	padding: 7px;
 	border-top: 2px solid #0099cc;
 	font-family: "Roboto Light";
 	font-size: 10px;
@@ -168,9 +167,9 @@ header #img_title.loading{
 
 #content{
 	position: absolute;
-	top: 60px;
-	left: 220px;
-	height: 90%;
+	top: 60px;		/*header size*/
+	left: 220px;	/*sidebar size*/
+	bottom: 28px; /*footer size*/
 }
 
 #colonne-middle{
@@ -283,6 +282,10 @@ header #img_title.loading{
 #popup h3{
 	padding-bottom: 5px;
 	border-bottom: 2px solid #0099CC;
+}
+
+#popup.error h3{
+	border-bottom: 2px solid #FF4444;
 }
 
 #popup p{
