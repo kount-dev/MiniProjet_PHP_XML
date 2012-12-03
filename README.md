@@ -1,17 +1,28 @@
 MiniProjet_PHP_XML
 ==================
 
-Projet IUT avec PHP et XML
+Louis Lafont
+Antonin Huvier
+Quentin Montant
 
-Créer une base de données en localhost ou autre
-Importer le fichier FILMS.sql
-Modifier fichier config.php avec vos identifiants
-Faire un chmod 777 sur le dossier exports (pour l'IUT)
 
-Utiliser l'application web
+1 - Créer une base de données en localhost ou autre
+2 - Importer le fichier FILMS.sql
+3 - Modifier fichier config.php avec vos identifiants
+4 - Faire un chmod 777 sur le dossier exports (pour l'IUT)
 
-Pour l'import penser à copier le fichier valide.dtd dans le fichier à importer
-juste après la balise précisant que c'est du xml.
+
+-------------------------------------------------------
+| Navigateurs supportés pour une utilisation optimale |
+| (en considérant que ceux-ci sont à jours):          |
+| Chrome, Firefox, Opera, Safari                      |
+-------------------------------------------------------
+
+**************************
+*    Problèmes connus    *
+**************************
+
+- Pour l'import penser à copier le fichier valide.dtd dans le fichier à importer juste après la balise précisant que c'est du xml.
 
 exemple :
 
@@ -32,3 +43,5 @@ exemple :
   <!ELEMENT ACTEUR (#PCDATA)>
 ]>
 ...
+
+- Le bouton "Parcourir" pour importer un fichier ne fonctionne pas sur le navigateur "Chromium" (à l'iut).
