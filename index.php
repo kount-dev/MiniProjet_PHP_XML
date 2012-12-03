@@ -20,81 +20,88 @@ $aFilms = DB::query('SELECT * FROM films ORDER BY titre_original',NULL);
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/style.css">
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/detect.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/liquidmetal.js"></script>
+	<script type="text/javascript" src="js/domsearch.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
-	<section id="colonne-droite">
-		<label for="nom_acteur">Acteurs : </label>
-		<select class="select" name="nom_acteur" id="nom_acteur">
-			<option value='rien'>-- Choisir --</option>
-			<?php 
-			foreach($aActeurs as $aDataActeur){
-				echo "<option value='" . $aDataActeur['code_indiv'] . "'>" . utf8_encode($aDataActeur['nom']) . " - " . utf8_encode($aDataActeur['prenom']) . "</option>";
-			}
-			?>
-		</select>
-		<br/>
-
-		<label for="nom_realisateur">Réalisateurs : </label>
-		<select class="select" name="nom_realisateur" id="nom_realisateur">
-			<option value='rien'>-- Choisir --</option>
-			<?php 
-			foreach($aRealisateurs as $aRealisateur){
-				echo "<option value='" . $aRealisateur['code_indiv'] . "'>" . utf8_encode($aRealisateur['nom']) . " - " . utf8_encode($aRealisateur['prenom']) . "</option>";
-			}
-			?>
-		</select>
-		<br/>
-
-		<label for="genre_film">Genres : </label>
-		<select class="select" name="genre_film" id="genre_film">
-			<option value='rien'>-- Choisir --</option>
-			<?php 
-			foreach($aGenres as $aDataGenre){
-				echo "<option value='" . $aDataGenre['code_genre'] . "'>" . utf8_encode($aDataGenre['nom_genre']) . "</option>";
-			}
-			?>
-		</select>
-		<br/>
-
-		<label for="annee_film">Année : </label>
-		<select class="select" name="annee_film" id="annee_film">
-			<option value='rien'>-- Choisir --</option>
-			<?php 
-			foreach($aAnnee as $aDataAnnee){
-				echo "<option value='" . $aDataAnnee['date'] . "'>" . $aDataAnnee['date'] . "</option>";
-			}
-			?>
-		</select>
-		<br/>
-
-		<label for="pays_film">Pays : </label>
-		<select class="select" name="pays_film" id="pays_film">
-			<option value='rien'>-- Choisir --</option>
-			<?php 
-			foreach($aPays as $aDataPays){
-				echo "<option value='" . utf8_encode($aDataPays['pays']) . "'>" . utf8_encode($aDataPays['pays']) . "</option>";
-			}
-			?>
-		</select>
-		<br/>
-
-		<input type="button" id="export" value="Exporter en fichier XML"/>
-		<input type="button" id="init" value="Réinitialiser les critères"/>
+	<header>
+		<span id="img_title"></span>
+		<h1>Movies Selector</h1>
+	</header>
+	<section id="colonne-droite" class="grad">
+		<input id="search_acteur" class="search" type="text" placeholder="Search..."/>
+		<input id="search_realisateur" class="search" type="text" placeholder="Search..."/>
+		<input id="search_genre" class="search" type="text" placeholder="Search..."/>
+		<input id="search_annee" class="search" type="text" placeholder="Search..."/>
+		<input id="search_pays" class="search" type="text" placeholder="Search..."/>
+		<section class="settings">
+			<h1>Filters</h1>
+			<div class="categorie" id="acteur">Acteurs<i></i><span class="choice"></span></div>
+			<div class="categorie" id="realisateur">Réalisateurs<i></i><span class="choice"></span></div>
+			<div class="categorie" id="genre">Genres<i></i><span class="choice"></span></div>
+			<div class="categorie" id="annee">Année<i></i><span class="choice"></span></div>
+			<div class="categorie" id="pays">Pays<i></i><span class="choice"></span></div>
+		</section>
+		<section class="settings">
+			<h1>Export</h1>
+			<input type="button" id="export" value="Exporter en fichier XML"/>
+		</section>
+		<section class="settings">
+			<h1>Import</h1>
+			<form  enctype="multipart/form-data" action="actions/import.php" method="POST">
+				<input type="file" name="xml_import"/>
+				<input type="submit" value="Importer le fichier"/>
+			</form>
+		</section>
 	</section>
-	<section id="import">
-		<form  enctype="multipart/form-data" action="actions/import.php" method="POST">
-			<input type="file" name="xml_import"/>
-			<input type="submit" value="Importer le fichier"/>
-		</form>
-	</section>
-	<section id="colonne-gauche">
-		<article>
+	<div id="content">
+		<section id="colonne-middle">
+			<ul id="select_acteur" class="select">
+				<?php 
+				foreach($aActeurs as $aDataActeur){
+					echo '<li id="' . $aDataActeur['code_indiv'] . '">' . strtoupper(utf8_encode($aDataActeur['nom'])) . ' ' . utf8_encode($aDataActeur['prenom']) . '</li>';
+				}
+				?>
+			</ul>
+			<ul id="select_realisateur" class="select">
+				<?php 
+				foreach($aRealisateurs as $aRealisateur){
+					echo '<li id="' . $aRealisateur['code_indiv'] . '">' . strtoupper(utf8_encode($aRealisateur['nom'])) . ' ' . utf8_encode($aRealisateur['prenom']) . '</li>';
+				}
+				?>
+			</ul>
+			<ul id="select_genre" class="select">
+				<?php 
+				foreach($aGenres as $aDataGenre){
+					echo '<li id="' . $aDataGenre['code_genre'] . '">' . utf8_encode($aDataGenre['nom_genre']) . '</li>';
+				}
+				?>
+			</ul>
+			<ul id="select_annee" class="select">
+				<?php 
+				foreach($aAnnee as $aDataAnnee){
+					echo '<li id="' . $aDataAnnee['date'] . '">' . $aDataAnnee['date'] . '</li>';
+				}
+				?>
+			</ul>
+			<ul id="select_pays" class="select">
+				<?php 
+				foreach($aPays as $aDataPays){
+					echo '<li id="' . utf8_encode($aDataPays['pays']) . '">' . utf8_encode($aDataPays['pays']) . '</li>';
+				}
+				?>
+			</ul>
+		</section>
+		<section id="colonne-gauche">
 			<?php 
 			echo displayBDD($aFilms);
 			?>
-		</article>
-	</section>
+		</section>
+	</div>
+	<footer>
+		<pre>Designed & Developped by [ Virtual-Dev ]  [ Kount-Dev ]  [ MissMyHairs-Dev ] </pre>
+	</footer>
 </body>
 </html>

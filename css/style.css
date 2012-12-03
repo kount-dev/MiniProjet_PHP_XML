@@ -1,41 +1,251 @@
-section#colonne-droite{
-	border: 3px double black;
-	padding: 30px;
-	text-align: left;
-	width: 360px;
+@font-face{
+	font-family: "Roboto Regular";
+	src: url(../font/roboto/Roboto-Regular.ttf);
+}
+
+@font-face{
+	font-family: "Roboto Light";
+	src: url(../font/roboto/Roboto-Light.ttf);
+}
+
+@-webkit-keyframes rotate {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to { 
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+.grad { 
+	background-color: #272D32; /* fallback color if gradients are not supported */
+
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#020202), to(#272D32)); 
+	background-image: -webkit-linear-gradient(top, #020202, #272D32); 
+	background-image:    -moz-linear-gradient(top, #020202, #272D32); 
+	background-image:     -ms-linear-gradient(top, #020202, #272D32); 
+	background-image:      -o-linear-gradient(top, #020202, #272D32); 
+	background-image:         linear-gradient(to bottom, #020202, #272D32); /* current standard, but unimplemented and subject to change */
+}
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	background-color: #020202;
+	color: white;
+	font-family: "Roboto Regular", sans-serif;
+}
+
+header, footer{
+	background-color: #020202;
+	font-size: 12px;
 	position: fixed;
-	top: 10px;
-	left:10px;
+	width: 100%;
 }
 
-label{
-	width: 150px;
-	display: inline-block;
+header{
+	top:0;
+	padding: 15px 10px;
+	border-bottom: 2px solid #0099cc;
+}
+footer{
+	bottom: 0;
+	padding: 10px;
+	border-top: 2px solid #0099cc;
+	font-family: "Roboto Light";
+	font-size: 10px;
+	text-align: center;
 }
 
-select{
-	width: 200px;
-}
-
-input{
+header #img_title{
 	display: block;
-	margin: 20px auto;
-	color: red;
-	font-size: 16px;
+	float: left;
+	height: 28px;
+	width: 50px;
+	background: url(../img/video.png) no-repeat center;
+	background-size: 45px; 
+}
+
+header #img_title.loading{
+	background: url(../img/refresh.png) no-repeat center;
+	background-size: 40px;
+	-webkit-animation-name:             rotate; 
+	-webkit-animation-duration:         0.5s; 
+	-webkit-animation-iteration-count:  infinite;
+	-webkit-transition-timing-function: linear;
+}
+
+#colonne-droite{
+	position: fixed;
+	top: 65px;
+	width: 200px;
+	height: 100%;
+	padding: 10px;
+}
+
+.search{
+	display: none;
+	font-family: "Roboto Light";
+	color: white;
+	font-size: 14px;
+	height: 30px;
+	padding-left: 30px;
+	width: 170px;
+	background: url(../img/search.png) no-repeat left;
+	background-size: 25px;
+	border: none;
+	border-bottom: 2px solid #0099cc;
+	outline: none;
+}
+
+.settings{
+	margin-top: 20px;
+}
+
+.settings h1{
+	border-bottom: 2px solid #666;
+	text-transform: uppercase;
+	font-family: "Roboto Light", sans-serif;
+	font-size: 12px;
+	padding-bottom: 3px; 
+}
+
+.settings div:hover,.select li:hover{
+	background-color: #0099cc !important;
+	cursor: pointer !important;
+}
+
+.active{display: block !important;}
+
+.settings .categorie{
+	padding: 15px 0;
+	border-bottom: 1px solid #333;
+	padding-left: 50px;
+	font-size: 14px; 
+}
+
+.categorie .choice{
+	display: block;
+	font-family: "Roboto Light";
+	font-size: 11px;
+	padding: 2px 0
+}
+
+.categorie i{
+	display: none;
+	float: right;
+	width: 16px;
+	height: 16px;
+	background: url(../img/close.png) no-repeat;
+	background-size: 16px;
+}
+
+.categorie#acteur{
+	background: url(../img/people.png) no-repeat left;
+	background-size: 35px;
+}
+.categorie#realisateur{
+	background: url(../img/video.png) no-repeat left;
+	background-size: 35px;
+}
+.categorie#genre{
+	background: url(../img/labels.png) no-repeat left;
+	background-size: 35px;
+}
+.categorie#annee{
+	background: url(../img/calendar.png) no-repeat left;
+	background-size: 35px;
+}
+.categorie#pays{
+	background: url(../img/map.png) no-repeat left;
+	background-size: 30px;
+}
+
+
+#content{
+	position: absolute;
+	top: 60px;
+	left: 220px;
+	height: 90%;
+}
+
+#colonne-middle{
+	position: absolute;
+	overflow-y: scroll;
+	width: 250px;
+	height: 100%;
+	background-color: #272D32;
+	font-family: "Roboto Light";
+	border-right: 1px solid #666;
+}
+
+#colonne-middle .select{display: none;}
+
+#colonne-middle li{
+	display: block;
+	padding: 15px 10px;
+	border-bottom: 1px solid #666;
 }
 
 #colonne-gauche{
-	margin-left: 440px;
-	border: 3px double red;
-	padding: 20px;
+	overflow-y:scroll;
+	height: 100%;
+	margin-left: 250px;
 }
 
-#import{
-	border: 3px double green;
-	padding: 30px;
-	text-align: left;
-	width: 360px;
-	position: fixed;
-	top: 400px;
-	left:10px;
+#colonne-gauche .movie{
+	padding: 10px;
+	border-bottom: 1px solid #666;
+}
+
+.data{
+	border-radius: 3px;
+	text-decoration: none;
+	margin-right: 10px;
+	margin-top: 7px;
+	padding: 3px 7px;
+	padding-left: 25px;
+	display: inline-block;
+}
+
+.genre{
+	background: url(../img/labels.png) no-repeat left #0099cc;
+	background-size: 25px;
+}
+
+.duree{
+	background: url(../img/clock.png) no-repeat left #669900;
+	background-size: 25px;
+}
+
+.date{
+	background: url(../img/calendar.png) no-repeat left #AA66CC;
+	background-size: 25px;
+}
+
+.pays{
+	background: url(../img/map.png) no-repeat left #FF4444;
+	background-size: 20px;
+}
+
+.realisateur{
+	background: url(../img/video.png) no-repeat left #666;
+	background-size: 25px;
+}
+
+.acteurs li{
+	background: url(../img/people.png) no-repeat left #FF8800;
+	background-size: 25px;
+}
+
+#export, #import{
+	margin-top: 20px;
+	color: white;
+	padding: 5px 10px;
+	background-color: #666;
+	border: 1px solid #0099cc;
+	border-radius: 3px;
 }
