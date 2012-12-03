@@ -101,7 +101,7 @@ $aFilms = DB::query('SELECT * FROM films ORDER BY titre_original',NULL);
 		</section>
 	</div>
 	<footer>
-		<pre>Designed & Developped by [ Virtual-Dev ]  [ Kount-Dev ]  [ MissMyHairs-Dev ] </pre>
+		<pre>Designed & Developped by [ Virtual-Dev ]  [ Kount-Dev ]  [ Antoninh ] </pre>
 	</footer>
 </body>
 </html>

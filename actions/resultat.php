@@ -10,6 +10,7 @@ $TABLES = "";
 $WHERE = "";
 $aDataQuery = array();
 
+// CREATION DE LA REQUETE DE RECHERCHE
 if(isset($_POST['genre_film']) && $_POST['genre_film'] != "rien"){ 
 	$TABLES .= ", genres g, classification c";
 	$WHERE .= " AND g.code_genre = c.ref_code_genre AND f.code_film = c.ref_code_film AND g.code_genre = :genre_film";
@@ -37,9 +38,12 @@ $sQueryPDO = 'SELECT * FROM films f' . $TABLES . ' WHERE 1'. $WHERE .' ORDER BY 
 
 $aFilms = DB::query($sQueryPDO, $aDataQuery);
 
+// AFFICHAGE
 if(isset($_POST['action']) && $_POST['action'] == 'display'){
 	echo displayBDD($aFilms);
 }
+
+// EXPORT XML
 elseif (isset($_POST['action']) && $_POST['action'] == 'export') {
 	$document = new DomDocument();
 	$document->formatOutput = true;
@@ -61,7 +65,7 @@ elseif (isset($_POST['action']) && $_POST['action'] == 'export') {
 		$Titre->appendChild($Francais);
 		$text = $document->createTextNode(trim(utf8_encode($aDataFilm['titre_francais'])));
 		$Francais->appendChild($text);
-
+		$nTest = 0;
 		$aGenres = DB::query('SELECT * FROM genres g, classification c WHERE  c.ref_code_film = :code_film AND c.ref_code_genre = g.code_genre', array(':code_film' =>  (int)$aDataFilm['code_film']));
 		foreach ($aGenres as $aGenre) {
 			if($nTest == 0){

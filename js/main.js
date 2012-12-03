@@ -97,7 +97,8 @@ $(function(){
 			data: {nom_acteur: choice_acteur, nom_realisateur: choice_realisateur, genre_film: choice_genre, annee_film: choice_annee, pays_film: choice_pays, action: type},
 			success: function (res){
 				$('header #img_title').removeClass("loading");
-				$('#colonne-gauche').html(res);
+				if(type=="display")
+					$('#colonne-gauche').html(res);
 			}
 		});
 	}

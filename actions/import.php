@@ -37,22 +37,26 @@ if ($dom->validate()) {
 				$aQueryVerif = DB::query('SELECT code_film FROM films WHERE titre_original = :titre && realisateur = :v_realisateur', array(':titre' => $CARAC_VALUE['TITRE']['ORIGINAL_0'], ':v_realisateur' => $CARAC_VALUE['REALISATEUR']));
 				$nCodeFilm = $aQueryVerif[0]['code_film']; 
 				
-				//si genre existe on relie
-				foreach ($CARAC_VALUE['GENRES'] as $GENRE) {
-					// test si le genre existe
-					$aTest2 = DB::query('SELECT code_genre FROM genres WHERE code_genre = :v_genre', array(':v_genre' => $GENRE));
-					if(sizeof($aTest2) >= 1){
-						DB::query('INSERT INTO classification (ref_code_film, ref_code_genre) VALUES(:film, :genre)',array(':film' => $nCodeFilm, ':genre' => $GENRE));
-						$aTest2 = 0;
+				if(isset($CARAC_VALUE['GENRES'])){
+					//si genre existe on relie
+					foreach ($CARAC_VALUE['GENRES'] as $GENRE) {
+						// test si le genre existe
+						$aTest2 = DB::query('SELECT code_genre FROM genres WHERE code_genre = :v_genre', array(':v_genre' => $GENRE));
+						if(sizeof($aTest2) >= 1){
+							DB::query('INSERT INTO classification (ref_code_film, ref_code_genre) VALUES(:film, :genre)',array(':film' => $nCodeFilm, ':genre' => $GENRE));
+							$aTest2 = 0;
+						}
 					}
 				}
-				//si individus existe on relie
-				foreach ($CARAC_VALUE['ACTEURS'] as $ACTEUR) {
-					// test si le genre existe
-					$aTest2 = DB::query('SELECT code_indiv FROM individus WHERE code_indiv = :v_indiv', array(':v_indiv' => $ACTEUR));
-					if(sizeof($aTest2) >= 1){
-						DB::query('INSERT INTO acteurs (ref_code_film, ref_code_acteur) VALUES(:film, :indiv)',array(':film' => $nCodeFilm, ':indiv' => $ACTEUR));
-						$aTest2 = 0;
+				if(isset($CARAC_VALUE['ACTEURS'])){
+					//si individus existe on relie
+					foreach ($CARAC_VALUE['ACTEURS'] as $ACTEUR) {
+						// test si le genre existe
+						$aTest2 = DB::query('SELECT code_indiv FROM individus WHERE code_indiv = :v_indiv', array(':v_indiv' => $ACTEUR));
+						if(sizeof($aTest2) >= 1){
+							DB::query('INSERT INTO acteurs (ref_code_film, ref_code_acteur) VALUES(:film, :indiv)',array(':film' => $nCodeFilm, ':indiv' => $ACTEUR));
+							$aTest2 = 0;
+						}
 					}
 				}
 			}
