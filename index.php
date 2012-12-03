@@ -46,13 +46,14 @@ $aFilms = DB::query('SELECT * FROM films ORDER BY titre_original',NULL);
 		</section>
 		<section class="settings">
 			<h1>Export</h1>
-			<input type="button" id="export" value="Exporter en fichier XML"/>
+			<input type="button" id="export" class="btn" value="Exporter en fichier XML"/>
 		</section>
 		<section class="settings">
 			<h1>Import</h1>
-			<form  enctype="multipart/form-data" action="actions/import.php" method="POST">
-				<input type="file" name="xml_import"/>
-				<input type="submit" value="Importer le fichier"/>
+			<form enctype="multipart/form-data" action="actions/import.php" method="POST">
+				<input type="file" id="choose_file" name="xml_import"/>
+				<input type="button" id="import" class="btn" value="Parcourir"/>
+				<input type="submit" id="file_submit" class="btn" value="Importer le fichier"/>
 			</form>
 		</section>
 	</section>
@@ -105,8 +106,8 @@ $aFilms = DB::query('SELECT * FROM films ORDER BY titre_original',NULL);
 	</footer>
 	<div id="popup">
 		<i></i>
-		<h3>Export Success</h3>
-		<p>L'Export XML s'est deroulé avec succes!</p>
+		<h3>Notification</h3>
+		<p>Content of notification</p>
 	</div>
 </body>
 </html>

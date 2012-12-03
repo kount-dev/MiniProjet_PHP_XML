@@ -40,7 +40,7 @@ body{
 }
 
 header, footer{
-	z-index: 9;
+	z-index: 10;
 	background-color: #020202;
 	font-size: 12px;
 	position: fixed;
@@ -242,16 +242,31 @@ header #img_title.loading{
 	background-size: 25px;
 }
 
-#export, #import{
+.settings form{
+	position: relative;
+}
+
+#choose_file, #file_submit{
+	display: none;
+}
+
+.btn{
 	margin-top: 20px;
 	color: white;
 	padding: 5px 10px;
 	background-color: #666;
-	border: 1px solid #0099cc;
-	border-radius: 3px;
+	border: none;
+}
+
+.btn:active{
+	margin-top: 20px;
+	color: white;
+	padding: 5px 10px;
+	background-color: #0099CC;
 }
 
 #popup{
+	z-index: 20;
 	display:none;
 	position:absolute;
 	padding: 15px;
