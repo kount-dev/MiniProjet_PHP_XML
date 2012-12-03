@@ -40,6 +40,7 @@ body{
 }
 
 header, footer{
+	z-index: 9;
 	background-color: #020202;
 	font-size: 12px;
 	position: fixed;
@@ -248,4 +249,38 @@ header #img_title.loading{
 	background-color: #666;
 	border: 1px solid #0099cc;
 	border-radius: 3px;
+}
+
+#popup{
+	display:none;
+	position:absolute;
+	padding: 15px;
+	top: 20px;
+	right: 10px;
+	background-color: #272D32;
+	-o-box-shadow: -5px 10px 5px #020202;
+	-ms-box-shadow: -5px 5px 5px #020202;
+	-webkit-box-shadow: -5px 5px 5px #020202;
+	-moz-box-shadow: -5px 5px 5px #020202;
+	box-shadow: -5px 5px 5px #020202;
+}
+
+#popup h3{
+	padding-bottom: 5px;
+	border-bottom: 2px solid #0099CC;
+}
+
+#popup p{
+	padding-top: 15px;
+	padding-right: 20px;
+	font-family: "Roboto Light";
+	font-size: 12px;
+}
+
+#popup i{
+	float: right;
+	width: 16px;
+	height: 16px;
+	background: url(../img/close.png) no-repeat;
+	background-size: 16px;
 }

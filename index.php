@@ -103,5 +103,10 @@ $aFilms = DB::query('SELECT * FROM films ORDER BY titre_original',NULL);
 	<footer>
 		<pre>Designed & Developped by [ Virtual-Dev ]  [ Kount-Dev ]  [ Antoninh ] </pre>
 	</footer>
+	<div id="popup">
+		<i></i>
+		<h3>Export Success</h3>
+		<p>L'Export XML s'est deroulé avec succes!</p>
+	</div>
 </body>
 </html>

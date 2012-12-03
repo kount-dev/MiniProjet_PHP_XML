@@ -99,8 +99,17 @@ $(function(){
 				$('header #img_title').removeClass("loading");
 				if(type=="display")
 					$('#colonne-gauche').html(res);
+				else{
+					$('#popup').slideDown();
+					setTimeout(function() {
+						$('#popup').slideUp();
+					}, 10000);
+				}
 			}
 		});
 	}
 
+	$('#popup i').click(function(){
+		$(this).parent().slideUp();
+	});
 })
